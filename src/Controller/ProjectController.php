@@ -32,7 +32,7 @@ class ProjectController extends AbstractController
         return $this->render('project/new.html.twig');
     }
     /**
-     * @Route("/project/create", name="project_create", methods={"POST"})
+     * @Route("/project", name="project_create", methods={"POST"})
      */
     public function create(Request $request)
     {
@@ -41,20 +41,6 @@ class ProjectController extends AbstractController
         $project->setTitle($request->request->get('title'));
         $project->setTarget($request->request->get('target'));
         $entityManager->persist($project);
-        $entityManager->flush();
-        return $this->redirectToRoute('project');
-    }
-    /**
-     * @Route("/project/{id}/pledge", name="pledge_create", methods={"POST"})
-     */
-    public function create_pledge(Request $request)
-    {
-        $entityManager = $this->getDoctrine()->getManager();
-        $project = $entityManager->getRepository(Project::class)->find($request->attributes->get('id'));
-        $pledge = new Pledge();
-        $pledge->setAmount($request->request->get('amount'));
-        $pledge->setProject($project);
-        $entityManager->persist($pledge);
         $entityManager->flush();
         return $this->redirectToRoute('project');
     }

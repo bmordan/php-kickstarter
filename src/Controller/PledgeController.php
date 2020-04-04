@@ -7,13 +7,24 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 
+/**
+ * @Route("/project/{project_id}", name="project_pledge_create")
+ */
+
 class PledgeController extends AbstractController
 {
     /**
-     * @Route("/project/{id}/pledge", name="pledge_create")
+     * @Route("/pledge", name="pledge_create", methods={"POST"})
      */
-    public function index()
+    public function create(Request $request)
     {
-        return $this->redirectToRoute('pledge');
+        $entityManager = $this->getDoctrine()->getManager();
+        $project = $entityManager->getRepository(Project::class)->find($request->attributes->get('project_id'));
+        $pledge = new Pledge();
+        $pledge->setAmount($request->request->get('amount'));
+        $pledge->setProject($project);
+        $entityManager->persist($pledge);
+        $entityManager->flush();
+        return $this->redirectToRoute('project');
     }
 }
