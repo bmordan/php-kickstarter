@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Create a Project{% endblock %}
+
+{% block body %}
+<section class="jumbotron">
+    <h1>Create a new Project</h1>
+    <form class="w-25" action="/project/create" method="POST">
+        <article class="form-group">
+            <label for="title">Title of your project</label>
+            <input class="form-control" id="title" name="title" required />
+        </article>
+        <article class="form-group">
+            <label for="target">The target amount for your project</label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">£</div>
+                </div>
+                <input class="form-control" id="target" name="target" pattern="[\d]+" title="Come on its got to be a value amount" required />
+            </div>
+        </article>
+        <section>
+            <button class="btn btn-primary" type="submit">Create</button>
+        </section> 
+    </form>
+</section>
+{% endblock %}
