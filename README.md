@@ -7,7 +7,6 @@
 ```
 php bin/console make:entity Project
 php bin/console make:entity Pledge
-php bin/console make:entity User
 ```
 Then start a wizard for creating the relationships
 ```
